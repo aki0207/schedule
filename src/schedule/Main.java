@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.eclipse.jdt.internal.compiler.ast.ArrayAllocationExpression;
 import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 import model.User;
@@ -32,10 +34,12 @@ public class Main extends HttpServlet {
 		HttpSession session = request.getSession();
 		User login_user = (User) session.getAttribute("loginUser");
 		Connection conn = null;
-		String id = "";
-		String schedule = "";
-		String date = "";
-		String name = "";
+		
+		//DBから取得したスケジュール情報の入れ物
+		ArrayList<String> id = new ArrayList<>();
+		ArrayList<String> schedule = new ArrayList<>();
+		ArrayList<String> date = new ArrayList<>();
+		ArrayList<String> name = new ArrayList<>();
 
 		try {
 			// JDBCドライバを読み込み
@@ -45,17 +49,17 @@ public class Main extends HttpServlet {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.0.132:1521:xe", "stockuser", "moriara0029");
 
 			// SQLを実行し、登録されている名前、パスワードを取得
-			String sql = "select * from schedule where id = " + login_user.getId();
+			String sql = "select * from schedule where id = " + login_user.getId() + "order by expiredate";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			// selectを実行し、結果票を取得
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 
-				id = rs.getString("ID");
-				schedule = rs.getString("SCHEDULE");
-				date = rs.getString("EXPIREDATE");
-				name = rs.getString("NAME");
+				id.add (rs.getString("ID"));
+				schedule.add (rs.getString("SCHEDULE"));
+				date.add (rs.getString("EXPIREDATE"));
+				name.add (rs.getString("NAME"));
 
 			}
 
@@ -98,8 +102,8 @@ public class Main extends HttpServlet {
 		}
 
 		// ログイン結果画面にフォワード
-		RequestDispatcher dispacher = request.getRequestDispatcher("/WEB-INF/jsp/LoginResult.jsp");
-		dispacher.forward(request, response);
+//		RequestDispatcher dispacher = request.getRequestDispatcher("/WEB-INF/jsp/LoginResult.jsp");
+//		dispacher.forward(request, response);
 
 	}
 }

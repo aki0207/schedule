@@ -18,15 +18,31 @@
 		<%=user_schedule.getName()%>さんのスケジュール
 	</p>
 
-
-
 	<p>
-		<%=user_schedule.getDate() %>
+		<%
+			for (int i = 0; i < user_schedule.returnSize(user_schedule); i++) {
+		%>
+
+
+		<%=user_schedule.getDate(i)%>
+				</p>
+				
+				<p>
+					<%=user_schedule.getSchedule(i)%>
+				</p>
+			
+
+		<%
+						}
+					%>
+		
+
+
 	</p>
 	
-	<p>
-		<%=user_schedule.getSchedule() %>
-	</p>
+
+
+
 
 
 

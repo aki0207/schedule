@@ -21,7 +21,17 @@
 	<p>
 		ようこそ<%=login_user.getName()%>さん
 	</p>
-	<a href="/schedule/Main">スケジュール確認へ</a>
+	
+	<p>
+		以下のID及びパスワードはログインの際、必要となります。
+	</p>
+	
+	<p>
+		ID:<%=login_user.getId() %>
+		パスワード:<%=login_user.getPass() %>
+	</p>
+		
+	<a href="/schedule/">ログインへ</a>
 
 	<%
 		} else {

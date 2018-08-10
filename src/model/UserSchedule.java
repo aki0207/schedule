@@ -1,19 +1,21 @@
 package model;
 
+import java.util.ArrayList;
+
 import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 public class UserSchedule {
 
-	private String id;
-	private String schedule;
-	private String date;
-	private String name;
+	private ArrayList<String> id;
+	private ArrayList<String> schedule;
+	private ArrayList<String> date;
+	private ArrayList<String> name;
 
 	public UserSchedule() {
 
 	}
 
-	public UserSchedule(String id, String schedule, String date, String name) {
+	public UserSchedule(ArrayList<String> id, ArrayList<String> schedule, ArrayList<String> date, ArrayList<String> name) {
 
 		this.id = id;
 		this.schedule = schedule;
@@ -24,27 +26,36 @@ public class UserSchedule {
 
 	public String getId() {
 
-		return id;
+		return id.get(0);
 
 	}
 
-	public String getSchedule() {
+	public String getSchedule(int index) {
 
-		return schedule;
+		return schedule.get(index);
 
 	}
 
-	public String getDate() {
+	public String getDate(int index) {
 
-		return date;
+		return date.get(index);
 
 	}
 
 	public String getName() {
 
-		return name;
+		return name.get(0);
 
 	}
+	
+	public  int returnSize(UserSchedule user_schedule) {
+		
+		int length = user_schedule.schedule.size();
+		return length;
+		
+	}
+	
+
 	
 
 
