@@ -40,6 +40,8 @@
 
 	</p>
 	
+	<a href="/schedule/EditingSchedule.jsp">スケジュールの編集へ</a>
+	
 
 
 
