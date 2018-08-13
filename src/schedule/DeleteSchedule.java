@@ -24,8 +24,8 @@ import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import model.User;
 import model.UserSchedule;
 
-@WebServlet("/UpdateSchedule")
-public class UpdateSchedule extends HttpServlet {
+@WebServlet("/DeleteSchedule")
+public class DeleteSchedule extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -33,10 +33,13 @@ public class UpdateSchedule extends HttpServlet {
 		// リクエストパラメータから値を取得
 		request.setCharacterEncoding("UTF-8");
 		String date = request.getParameter("date");
-		String schedule = request.getParameter("schedule");
+		
+		//drop文のwhere旬で使用するためidをセッションスコープから取得
+		HttpSession session = request.getSession();
+		User login_user = (User) session.getAttribute("loginUser");
+		String id = login_user.getId();
 		
 		System.out.println("入力された日付けは" + date);
-		System.out.println("入力された予定は" + schedule);
 
 		response.setContentType("text/html; charset=UTF-8");
 
@@ -51,14 +54,14 @@ public class UpdateSchedule extends HttpServlet {
 
 			// SQLを実行し、指定された時間のスケジュールを更新
 			Statement stmt = conn.createStatement();
-			String sql = "update schedule set schedule = '" + schedule + "' where EXPIREDATE = to_date('" + date
-					+ "','YYYY-MM-DD HH24:MI:SS')";
+			String sql = "delete from schedule where EXPIREDATE = to_date('" + date
+					+ "','YYYY-MM-DD HH24:MI:SS') and id = " + id;
 			System.out.println("実行するSQLは" + sql);
 			int num = stmt.executeUpdate(sql);
 			System.out.println("実行かんりょ");
 
 			// ユーザーのスケジュール表示画面へフォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UpdateScheduleResult.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/DeleteScheduleResult.jsp");
 			dispatcher.forward(request, response);
 
 		} catch (ClassNotFoundException e) {

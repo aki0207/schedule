@@ -25,23 +25,28 @@
 
 
 		<%=user_schedule.getDate(i)%>
-				</p>
-				
-				<p>
-					<%=user_schedule.getSchedule(i)%>
-				</p>
-			
+	</p>
 
-		<%
-						}
-					%>
-		
+	<p>
+		<%=user_schedule.getSchedule(i)%>
+	</p>
+
+
+	<%
+		}
+	%>
+
 
 
 	</p>
+
+	<p>スケジュールを…</p>
 	
-	<a href="/schedule/EditingSchedule.jsp">スケジュールの編集へ</a>
-	
+	<br>
+	<a href="/schedule/EditingSchedule.jsp">更新する</a>
+	<a href="/schedule/AddSchedule.jsp">追加する</a>
+	<a href="/schedule/DeleteSchedule.jsp">削除する</a>
+
 
 
 

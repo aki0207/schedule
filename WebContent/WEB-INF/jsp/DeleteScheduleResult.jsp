@@ -6,10 +6,10 @@
 <html>
 <head>
 <meta charset=UTF-8">
-<title>スケジュール更新完了画面</title>
+<title>スケジュール削除完了画面</title>
 </head>
 <body>
-	<h1>スケジュールの編集が完了しました</h1>
+	<h1>スケジュールの削除が完了しました</h1>
 
 
 	<a href="/schedule/Main">スケジュール確認へ</a>
