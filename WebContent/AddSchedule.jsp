@@ -11,7 +11,7 @@
 <h1><font color = "#00800">スケジュール追加</font></h1>
 <form action = "/schedule/AddSchedule" method = "post">
 スケジュールの日・時間:<input type = "text" name = "date"><br>
-内容:<input type = "text" name = "schedule"><br>
+スケジュールの内容&nbsp;&nbsp;&nbsp;&nbsp;:<input type = "text" name = "schedule"><br>
 <input type = "submit" value = "追加">
 </form>
 

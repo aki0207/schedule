@@ -22,6 +22,7 @@ import javax.xml.crypto.Data;
 import org.eclipse.jdt.internal.compiler.ast.ArrayAllocationExpression;
 import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
+import model.Execution;
 import model.User;
 import model.UserSchedule;
 
@@ -56,13 +57,30 @@ public class AddSchedule extends HttpServlet {
 			// データベースへ接続
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.0.132:1521:xe", "stockuser", "moriara0029");
 
-			// SQLを実行し、指定された時間のスケジュールを更新
+			// selectを実行し、入力した時間の予定が存在するか確認
 			Statement stmt = conn.createStatement();
-			String sql = "insert into schedule (ID,SCHEDULE,EXPIREDATE,NAME) values (" + id + ",'" + schedule + "',"
-					+ "to_date('" + date + "','YYYY-MM-DD HH24:MI:SS'),'" + name + "')";
-			System.out.println("実行するSQLは" + sql);
-			int num = stmt.executeUpdate(sql);
-			System.out.println("実行かんりょ");
+			System.out.println("select文実行するぜい");
+			String sql = "select * from schedule where EXPIREDATE = to_date('" + date
+					+ "','YYYY-MM-DD HH24:MI:SS')and id = " + id;
+			ResultSet rs = stmt.executeQuery(sql);
+
+			
+			// 存在しない場合のみ追加する
+			if (!(rs.next())) {
+				
+				// SQLを実行し、指定された時間にスケジュールを追加
+				stmt = conn.createStatement();
+				sql = "insert into schedule (ID,SCHEDULE,EXPIREDATE,NAME) values (" + id + ",'" + schedule + "',"
+						+ "to_date('" + date + "','YYYY-MM-DD HH24:MI:SS'),'" + name + "')";
+				System.out.println("実行するSQLは" + sql);
+				int num = stmt.executeUpdate(sql);
+				System.out.println("実行かんりょ");
+				
+				//処理が行われたかの判定に用いるexecutionインスタンスを生成、スコープに保存
+				Execution execution_sql = new Execution();
+				System.out.println("ちなみにexecution_sqlの中身これな→" + execution_sql);
+				session.setAttribute("executionsql", execution_sql);
+			}
 
 			// ユーザーのスケジュール表示画面へフォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/AddScheduleResult.jsp");

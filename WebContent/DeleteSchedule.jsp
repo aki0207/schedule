@@ -14,8 +14,9 @@
 <input type = "submit" value = "スケジュールの削除">
 </form>
 
-<p>ユーザー登録はこちら</p>
-<a href="/schedule/RegisterInputForm.jsp">登録へ</a>
+<p>マイページトップへ</p>
+<a href="/schedule/Main">戻る</a>
+
 
 </body>
 </html>

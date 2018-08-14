@@ -45,7 +45,13 @@
 	<br>
 	<a href="/schedule/EditingSchedule.jsp">更新する</a>
 	<a href="/schedule/AddSchedule.jsp">追加する</a>
-	<a href="/schedule/DeleteSchedule.jsp">削除する</a>
+	<a href="/schedule/DeleteSchedule.jsp">削除する</a><br>
+	
+	
+	<p>ログアウトしちゃう</p>
+	<a href="/schedule/Logout">ぐっばいろぐあうと</a>
+	
+	
 
 
 
