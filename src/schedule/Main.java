@@ -34,8 +34,8 @@ public class Main extends HttpServlet {
 		HttpSession session = request.getSession();
 		User login_user = (User) session.getAttribute("loginUser");
 		Connection conn = null;
-		
-		//DBから取得したスケジュール情報の入れ物
+
+		// DBから取得したスケジュール情報の入れ物
 		ArrayList<String> id = new ArrayList<>();
 		ArrayList<String> schedule = new ArrayList<>();
 		ArrayList<String> date = new ArrayList<>();
@@ -51,22 +51,34 @@ public class Main extends HttpServlet {
 			// SQLを実行し、登録されている名前、パスワードを取得
 			String sql = "select * from schedule where id = " + login_user.getId() + "order by expiredate";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			// selectを実行し、結果票を取得
+			// select文を実行し、結果票を取得
 			ResultSet rs = pstmt.executeQuery();
 
-			while (rs.next()) {
+			// 検索結果があるなら
+			if (rs.isBeforeFirst()) {
 
-				id.add (rs.getString("ID"));
-				schedule.add (rs.getString("SCHEDULE"));
-				date.add (rs.getString("EXPIREDATE"));
-				name.add (rs.getString("NAME"));
+				// SQL実行結果を配列に追加していく
+				while (rs.next()) {
 
+					id.add(rs.getString("ID"));
+					schedule.add(rs.getString("SCHEDULE"));
+					date.add(rs.getString("EXPIREDATE"));
+					name.add(rs.getString("NAME"));
+
+				}
+
+				UserSchedule user_schedule = new UserSchedule(id, schedule, date, name);
+
+				// ユーザー情報をセッションスコープに保存
+				session.setAttribute("user_schedule", user_schedule);
+
+			} else {
+				
+				System.out.println("スケジュールないんじゃね");
+				//セッションに残っている消す前のスケジュール情報を保持したインスタンスを削除
+				session.removeAttribute("user_schedule");
+				
 			}
-
-			UserSchedule user_schedule = new UserSchedule(id, schedule, date, name);
-
-			// ユーザー情報をセッションスコープに保存
-			session.setAttribute("user_schedule", user_schedule);
 
 			// ユーザーのスケジュール表示画面へフォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserSchedule.jsp");
@@ -102,8 +114,9 @@ public class Main extends HttpServlet {
 		}
 
 		// ログイン結果画面にフォワード
-//		RequestDispatcher dispacher = request.getRequestDispatcher("/WEB-INF/jsp/LoginResult.jsp");
-//		dispacher.forward(request, response);
+		// RequestDispatcher dispacher =
+		// request.getRequestDispatcher("/WEB-INF/jsp/LoginResult.jsp");
+		// dispacher.forward(request, response);
 
 	}
 }

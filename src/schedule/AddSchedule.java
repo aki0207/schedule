@@ -66,7 +66,7 @@ public class AddSchedule extends HttpServlet {
 
 			
 			// 存在しない場合のみ追加する
-			if (!(rs.next())) {
+			if (!(rs.isBeforeFirst())) {
 				
 				// SQLを実行し、指定された時間にスケジュールを追加
 				stmt = conn.createStatement();

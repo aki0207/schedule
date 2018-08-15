@@ -61,7 +61,7 @@ public class DeleteSchedule extends HttpServlet {
 			ResultSet rs = stmt.executeQuery(sql);
 
 			// 存在した場合の処理
-			if (rs.next()) {
+			if (rs.isBeforeFirst()) {
 
 				// SQLを実行し、指定された時間のスケジュールを更新
 				stmt = conn.createStatement();
