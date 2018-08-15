@@ -23,6 +23,13 @@ public class UserSchedule {
 		this.name = name;
 
 	}
+	
+	//管理のユーザー一覧で使う
+	public UserSchedule(ArrayList<String> name) {
+		
+		this.name = name;
+		
+	}
 
 	public String getId() {
 
@@ -48,9 +55,15 @@ public class UserSchedule {
 
 	}
 	
+	//管理のユーザー一覧で使う
+	public String getName(int index) {
+		
+		return name.get(index);
+	}
+	
 	public  int returnSize(UserSchedule user_schedule) {
 		
-		int length = user_schedule.schedule.size();
+		int length = user_schedule.name.size();
 		return length;
 		
 	}

@@ -29,11 +29,12 @@
 
 
 		<%=user_schedule.getDate(i)%>
-	</p>
-
-	<p>
 		<%=user_schedule.getSchedule(i)%>
 	</p>
+
+
+		
+	
 
 
 	<%
@@ -62,7 +63,7 @@
 	<br>
 
 
-	<p>ログアウトしちゃう</p>
+	<p>ログアウトしちゃう？</p>
 	<a href="/schedule/Logout">ぐっばいろぐあうと</a>
 
 

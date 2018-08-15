@@ -3,6 +3,8 @@ package model;
 
 import java.io.Serializable;
 
+import com.sun.media.sound.SoftInstrument;
+
 public class User implements Serializable {
 
 	private String name;
@@ -17,6 +19,14 @@ public class User implements Serializable {
 		this.id = id;
 		this.pass = pass;
 		this.name = name;
+
+	}
+
+	// 管理で使う
+	public User(String id, String pass) {
+
+		this.id = id;
+		this.pass = pass;
 
 	}
 
@@ -37,12 +47,12 @@ public class User implements Serializable {
 		return name;
 
 	}
-	
+
 	public String setName(String name) {
-		
+
 		this.name = name;
 		return name;
-		
+
 	}
 
 }

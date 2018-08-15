@@ -6,20 +6,18 @@
 <head>
 
 <meta charset=UTF-8">
-<title>スケジュール管理</title>
+<title>管理画面</title>
 </head>
 <body>
 	<h1>
-		<font color="#00800">スケジュール管理</font>
+		<font color="#00800">管理画面</font>
 	</h1>
-	<form action="/schedule/Login" method="post">
+	<form action="/schedule/ManageLogin" method="post">
 		ユーザーID:<input type="text" name="id"><br> パスワード:<input
 			type="text" name="pass"><br> <input type="submit"
 			value="ログイン">
 	</form>
 
-	<p>ユーザー関連はこちら</p>
-	<a href="/schedule/RegisterInputForm.jsp">登録へ</a>
-	<a href="/schedule/ManageIndex.jsp">管理画面へ</a>
+	<a href="/schedule/index.jsp">戻る</a>
 </body>
 </html>
